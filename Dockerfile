@@ -5,11 +5,11 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Instalamos dependencias del sistema necesarias
-RUN apt-get update && apt-get install -y libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends libpq-dev gcc && rm -rf /var/lib/apt/lists/*
 
 # Copiamos los requisitos de Python y los instalamos
 COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiamos el proyecto Django al directorio de trabajo en el contenedor
 COPY . /app
