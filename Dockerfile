@@ -1,32 +1,37 @@
 # Usamos una imagen de Python oficial como imagen base
-FROM python:3.13-rc-slim-bookworm
+# Usar una imagen base oficial de Python como punto de partida
+FROM python:3.13.0-alpha.4-slim as builder
 
-# Establecemos un directorio de trabajo
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Instalamos dependencias del sistema necesarias
-# hadolint ignore=DL3008
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev=15.6-0+deb12u1 \
-    gcc=4:12.2.0-3 \
-&& rm -rf /var/lib/apt/lists/*
-
-# Copiamos los requisitos de Python y los instalamos
-COPY requirements.txt /app/
+# Instalar dependencias
+# Copiar solo el archivo de requisitos primero para aprovechar la caché de Docker
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamos el proyecto Django al directorio de trabajo en el contenedor
-COPY . /app
+# Copiar el resto del código fuente del proyecto al contenedor
+COPY . .
 
-# Establecemos variables de entorno
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Usar multi-stage build para minimizar el tamaño de la imagen y mejorar la seguridad
+FROM python:3.13.0-alpha.4-slim
 
-# Puerto en el que la aplicación estará disponible
+WORKDIR /app
+COPY --from=builder /app /app
+
+# Crear un usuario no root para ejecutar la aplicación de manera segura
+RUN useradd -m myuser
+USER myuser
+
+# Exponer el puerto en el que se ejecutará la aplicación
 EXPOSE 8000
 
-# Chequeo de salud para verificar que la aplicación esté corriendo correctamente
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost:8000/health || exit 1
+# Definir variables de entorno (personalizar según sea necesario)
+ENV MY_ENVIRONMENT_VAR=value
 
-# Ejecutamos la aplicación Django
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "demo.wsgi:application"]
+# Incluir un comando de chequeo de salud para verificar el estado de la aplicación
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
+
+# El comando para ejecutar la aplicación, ajustar según sea necesario
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
