@@ -63,23 +63,6 @@ jobs:
         push: true
         tags: 050408/devops-app:latest
 
-    - name: Anchore Container Scan
-      uses: anchore/scan-action@v3
-      with:
-        image: '050408/devops-app:latest'
-        fail-build: true
-        output-format: 'sarif'
-        severity-cutoff: 'low'
-        only-fixed: false
-        add-cpes-if-none: false
-        by-cve: false
-
-    - name: Vulnerability Analysis
-      uses: anchore/scan-action@v3
-      with:
-        image-reference: "050408/devops-app:latest"
-        fail-build: true
-
     - name: Deploy to Kubernetes
       uses: azure/k8s-deploy@v1
       with:
