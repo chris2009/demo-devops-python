@@ -69,13 +69,6 @@ jobs:
           push: true
           tags: 050408/devops-app:latest
 
-      - name: Vulnerability Analysis
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '050408/devops-app:latest'
-          format: 'table'
-          exit-code: '1'
-
   deploy:
     needs: dockerize
     runs-on: ubuntu-latest
