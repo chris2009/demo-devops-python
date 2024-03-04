@@ -62,5 +62,5 @@ jobs:
       with:
           kubeconfig: ${{secrets.KUBE_CONFIG}}
           namespace: default
-          images: 'user/app:latest'
+          images: 'devops-app:latest'
           manifests: 'kubernetes-deployment.yml'
