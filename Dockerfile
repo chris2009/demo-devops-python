@@ -6,8 +6,8 @@ WORKDIR /app
 
 # Instalamos dependencias del sistema necesarias
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev=9.0.0 \
-    gcc=13.22\
+    libpq-dev= 15.6-0+deb12u1 \
+    gcc=4:12.2.0-3\
 && rm -rf /var/lib/apt/lists/*
 
 # Copiamos los requisitos de Python y los instalamos
