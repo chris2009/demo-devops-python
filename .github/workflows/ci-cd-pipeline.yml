@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Unit Tests
+      run: |
+        python manage.py test api
+
+    - name: Static Code Analysis
+      uses: github/super-linter@v4
+      with:
+        linter_rules_path: .github/linters
+        default_branch: main
+
+    - name: Code Coverage
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: true
+
+    - name: Build and Push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: devops-app:latest
+
+    - name: Vulnerability Analysis
+      uses: anchore/scan-action@v3
+      with:
+        image-reference: "user/app:latest"
+        fail-build: true
+
+    - name: Deploy to Kubernetes
+      uses: azure/k8s-deploy@v1
+      with:
+          kubeconfig: ${{secrets.KUBE_CONFIG}}
+          namespace: default
+          images: 'user/app:latest'
+          manifests: 'kubernetes-deployment.yml'
