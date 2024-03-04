@@ -9,8 +9,9 @@ on:
       - master
 
 jobs:
-  test-and-coverage:
+  build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,14 +22,6 @@ jobs:
       with:
         python-version: 3.11
 
-    - name: Cache pip
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
@@ -37,7 +30,15 @@ jobs:
     - name: Run Unit Tests with Coverage
       run: |
         coverage run manage.py test api
+
+    - name: Generate Coverage Report
+      run: |
         coverage xml
+
+    - name: Static Code Analysis
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Code Coverage
       uses: codecov/codecov-action@v1
@@ -47,15 +48,6 @@ jobs:
         flags: unittests
         name: codecov-umbrella
         fail_ci_if_error: true
-
-  build-and-deploy:
-    needs: test-and-coverage
-    runs-on: ubuntu-latest
-    steps:
-    - name: Static Code Analysis
-      uses: github/super-linter@v4
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and Push Docker image
       uses: docker/build-push-action@v2
