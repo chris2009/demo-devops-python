@@ -32,9 +32,8 @@ jobs:
 
     - name: Static Code Analysis
       uses: github/super-linter@v4
-      with:
-        linter_rules_path: .github/linters
-        default_branch: master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Code Coverage
       uses: codecov/codecov-action@v1
