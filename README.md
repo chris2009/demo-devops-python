@@ -10,7 +10,7 @@ This is a simple application to be used in the technical test of DevOps.
 
 ### Installation
 
-Clone this repo.
+Clone this repository.
 
 ```bash
 git clone https://bitbucket.org/devsu/demo-devops-python.git
@@ -126,7 +126,7 @@ If the response is successful, the service will return an HTTP Status 200 and a 
 }
 ```
 
-If the user id does not exist, we will receive status 404 and the following message:
+If the user ID does not exist, we will receive status 404 and the following message:
 
 ```json
 {
