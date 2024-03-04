@@ -25,10 +25,19 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+        pip install coverage
 
     - name: Run Unit Tests
       run: |
         python manage.py test api
+
+    - name: Run Unit Tests with Coverage
+      run: |
+        coverage run manage.py test api
+
+    - name: Generate Coverage Report
+      run: |
+        coverage xml
 
     - name: Static Code Analysis
       uses: github/super-linter@v4
