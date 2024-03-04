@@ -49,7 +49,7 @@ To run locally the project you can use this command.
 py manage.py runserver
 ```
 
-Open [http://localhost:8000/api/](http://localhost:8000/api/) with your browser to see the result.
+Open [API endpoint](http://localhost:8000/api/) with your browser to see the result.
 
 ### Features
 
