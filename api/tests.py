@@ -1,7 +1,7 @@
 import json
 from django.urls import reverse
 from rest_framework.test import APITestCase
-from .models import User
+from api.models import User
 
 class TestUserView(APITestCase):
     def setUp(self):
