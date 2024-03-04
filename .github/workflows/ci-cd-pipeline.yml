@@ -69,7 +69,7 @@ jobs:
         image: '050408/devops-app:latest'
         fail-build: true
         output-format: 'sarif'
-        severity-cutoff: 'medium'
+        severity-cutoff: 'none'
         only-fixed: false
         add-cpes-if-none: false
         by-cve: false
