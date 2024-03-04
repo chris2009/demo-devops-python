@@ -1,6 +1,6 @@
 # Usamos una imagen de Python oficial como imagen base
 # Usar una imagen base oficial de Python como punto de partida
-FROM python:3.11.3 as builder
+FROM python:3.13-rc-slim-bookworm as builder
 
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Usar multi-stage build para minimizar el tamaño de la imagen y mejorar la seguridad
-FROM python:3.11.3
+FROM python:3.13-rc-slim-bookworm
 
 WORKDIR /app
 COPY --from=builder /app /app
