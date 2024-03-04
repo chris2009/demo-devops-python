@@ -1,11 +1,14 @@
 # Usamos una imagen de Python oficial como imagen base
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Establecemos un directorio de trabajo
 WORKDIR /app
 
 # Instalamos dependencias del sistema necesarias
-RUN apt-get update && apt-get install -y --no-install-recommends libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev=9.0.0 \
+    gcc=13.22\
+&& rm -rf /var/lib/apt/lists/*
 
 # Copiamos los requisitos de Python y los instalamos
 COPY requirements.txt /app/

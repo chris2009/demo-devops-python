@@ -14,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v2
@@ -32,7 +34,7 @@ jobs:
       uses: github/super-linter@v4
       with:
         linter_rules_path: .github/linters
-        default_branch: main
+        default_branch: master
 
     - name: Code Coverage
       uses: codecov/codecov-action@v1
