@@ -1,5 +1,5 @@
 # Usamos una imagen de Python oficial como imagen base
-FROM python:3.13.0a3
+FROM python:3.13-rc-slim-bookworm
 
 # Establecemos un directorio de trabajo
 WORKDIR /app
