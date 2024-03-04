@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python 3.13-rc-slim-bookworm
       uses: actions/setup-python@v2
       with:
-        python-version: 3.13-rc-slim-bookworm
+        python-version: 3.13.0-alpha.4
 
     - name: Install dependencies
       run: |
