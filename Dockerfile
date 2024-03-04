@@ -5,6 +5,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Instalamos dependencias del sistema necesarias
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev= 15.6-0+deb12u1 \
     gcc=4:12.2.0-3 \
