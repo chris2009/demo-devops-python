@@ -75,6 +75,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Crear directorio .kube
+        run: mkdir -p $HOME/.kube
+
       - name: Configurar Kubeconfig
         run: |
           echo "${{ secrets.KUBE_CONFIG_SECRETS }}" | base64 -d > "$HOME/.kube/config"
