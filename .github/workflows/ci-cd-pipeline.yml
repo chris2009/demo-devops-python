@@ -75,20 +75,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Crear directorio .kube
-        run: mkdir -p "$HOME/.kube"
-
-      - name: Configurar Kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG_SECRETS }}" | base64 -d > "$HOME/.kube/config"
-
       - name: Set up Kubeconfig
         uses: azure/setup-kubectl@v1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deploy/kubernetes-deployment.yml --validate=false
-
-      - name: Verify Deployment
-        run: |
           kubectl rollout status deployment/mi-aplicacion-deployment
