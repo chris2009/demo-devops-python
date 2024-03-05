@@ -14,6 +14,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el resto del código fuente del proyecto al contenedor
 COPY . .
 
+# Cambiar el propietario del directorio de trabajo y del archivo de la base de datos al usuario no root
+RUN chown -R myuser:myuser /app
+
 # Cambiar al usuario no root
 USER myuser
 
