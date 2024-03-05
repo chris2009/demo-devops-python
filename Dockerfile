@@ -1,8 +1,9 @@
-# Usamos una imagen de Python oficial como imagen base
 # Usar una imagen base oficial de Python como punto de partida
-FROM python:3.13-rc-slim-bookworm as builder
+FROM python:3.11.3-slim as base
 
-# Establecer el directorio de trabajo en el contenedor
+# Crear un usuario no root para ejecutar la aplicación de manera segura
+RUN useradd -m myuser
+
 WORKDIR /app
 
 # Instalar dependencias
@@ -13,14 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el resto del código fuente del proyecto al contenedor
 COPY . .
 
-# Usar multi-stage build para minimizar el tamaño de la imagen y mejorar la seguridad
-FROM python:3.13-rc-slim-bookworm
-
-WORKDIR /app
-COPY --from=builder /app /app
-
-# Crear un usuario no root para ejecutar la aplicación de manera segura
-RUN useradd -m myuser
+# Cambiar al usuario no root
 USER myuser
 
 # Exponer el puerto en el que se ejecutará la aplicación
