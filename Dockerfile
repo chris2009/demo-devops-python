@@ -1,5 +1,5 @@
 # Usar una imagen base oficial de Python como punto de partida
-FROM python:3.11.3 as base
+FROM python:3.11
 
 # Crear un usuario no root para ejecutar la aplicación de manera segura
 RUN useradd -m myuser
