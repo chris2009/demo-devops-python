@@ -14,26 +14,10 @@ spec:
     spec:
       containers:
       - name: mi-aplicacion
-        image: 050408/test-devops:latest
+        image: test-devops:latest
         ports:
         - containerPort: 8000
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8000
-          initialDelaySeconds: 15
-          timeoutSeconds: 2
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8000
-          initialDelaySeconds: 5
-          timeoutSeconds: 2
-        envFrom:
-        - configMapRef:
-            name: mi-aplicacion-config
-        - secretRef:
-            name: mi-aplicacion-secret
+
 ---
 apiVersion: v1
 kind: Service
@@ -42,7 +26,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 8000
     targetPort: 8000
   selector:
     app: mi-aplicacion
