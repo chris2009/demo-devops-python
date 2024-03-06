@@ -67,7 +67,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: test-devops:latest
+          tags: 050408/test-devops:latest
 
   deploy:
     needs: dockerize
