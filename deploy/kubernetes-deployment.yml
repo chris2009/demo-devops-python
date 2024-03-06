@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mi-aplicacion
-        image: test-devops:latest
+        image: devops-image:latest
         ports:
         - containerPort: 8080
         livenessProbe:
