@@ -80,7 +80,7 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
 
-      - name: Deploy to Kubernetes
+      - name: Deploy to K8S
         run: |
           kubectl apply -f deploy/kubernetes-deployment.yml --validate=false
           kubectl rollout status deployment/mi-aplicacion-deployment
