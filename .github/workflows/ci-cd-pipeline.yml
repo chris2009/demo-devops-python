@@ -82,7 +82,7 @@ jobs:
 
       - name: Deploy to K8S
         run: |
-          kubectl create configmap mi-aplicacion-config --from-file=config.yml
-          kubectl create secret generic mi-aplicacion-secret --from-file=secret.yml
+          kubectl create configmap mi-aplicacion-config --from-file=deployment/config.yml
+          kubectl create secret generic mi-aplicacion-secret --from-file=deployment/secret.yml
           kubectl apply -f deploy/kubernetes-deployment.yml --validate=false;
           kubectl rollout status deployment/mi-aplicacion-deployment
