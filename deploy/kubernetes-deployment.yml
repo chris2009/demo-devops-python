@@ -17,7 +17,23 @@ spec:
         image: test-devops:latest
         ports:
         - containerPort: 8080
-
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+        envFrom:
+        - configMapRef:
+            name: mi-aplicacion-config
+        - secretRef:
+            name: mi-aplicacion-secret
 ---
 apiVersion: v1
 kind: Service
