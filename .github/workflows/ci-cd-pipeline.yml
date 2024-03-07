@@ -70,7 +70,7 @@ jobs:
           tags: 050408/devops-image:latest
 
   deploy:
-    needs: dockerize
+    needs: Contenerizacion
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
