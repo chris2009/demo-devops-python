@@ -16,17 +16,17 @@ spec:
       - name: mi-aplicacion
         image: devops-image:latest
         ports:
-        - containerPort: 6443
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /health
-            port: 6443
+            port: 80
           initialDelaySeconds: 15
           timeoutSeconds: 2
         readinessProbe:
           httpGet:
             path: /health
-            port: 6443
+            port: 80
           initialDelaySeconds: 5
           timeoutSeconds: 2
         envFrom:
@@ -42,7 +42,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 6443
-    targetPort: 6443
+  - port: 80
+    targetPort: 80
   selector:
     app: mi-aplicacion
