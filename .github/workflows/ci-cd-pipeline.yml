@@ -49,7 +49,7 @@ jobs:
         name: codecov-umbrella
         fail_ci_if_error: true
 
-  Contenerizacion:
+  dockerize:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -70,7 +70,7 @@ jobs:
           tags: 050408/devops-image:latest
 
   deploy:
-    needs: Contenerizacion
+    needs: dockerize
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
