@@ -79,7 +79,7 @@ jobs:
         run:
           mkdir -p "$HOME/.kube"
           echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > "$HOME/.kube/config"
-        shell: bash
+        shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
 
       - name: Get kubectl context
         run: kubectl config current-context
