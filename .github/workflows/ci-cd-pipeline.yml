@@ -76,7 +76,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Kubeconfig
-        uses: azure/setup-kubectl@v1
         run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
         shell: bash
 
