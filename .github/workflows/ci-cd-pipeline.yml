@@ -93,9 +93,6 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
-      - name: Diagnosticar problemas de red (Ping)
-        run: ping -c 4 devops-test-s11yfujo.hcp.eastus.azmk8s.io
-
       - name: Diagnosticar problemas de red (Traceroute)
         run: traceroute devops-test-s11yfujo.hcp.eastus.azmk8s.io
 
