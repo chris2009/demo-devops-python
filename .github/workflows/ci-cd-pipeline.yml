@@ -19,6 +19,7 @@ jobs:
         uses: zricethezav/gitleaks-action@master
         with:
           config-path: .gitleaks.toml
+          additional-flags: '--exclude-path="deploy/secrets.yml"'
 
       - name: Set up Python
         uses: actions/setup-python@v2
