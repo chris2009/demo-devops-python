@@ -1,7 +1,7 @@
 # Excluir archivos específicos
 [[rules]]
-description = "Ignorar archivo secrets.yml"
-files = ["deploy/secrets.yml"]
+description = "Excluir archivo secrets.yml"
+files = ['^deploy/secrets\\.yml$']
 
 # Permitir expresiones regulares específicas
 [[rules]]
