@@ -99,5 +99,5 @@ jobs:
       - name: Run traceroute
         run: traceroute devops-test-s11yfujo.hcp.eastus.azmk8s.io
 
-      - name: Deploy to AKS
+      - name: Despliegue en AKS
         run: kubectl apply -f deploy/kubernetes-deployment.yml --validate=false
