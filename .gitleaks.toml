@@ -1,8 +1,13 @@
+# Excluir archivos específicos
 [[rules]]
-description = "Permitir secretos específicos"
-files = ['deploy/secrets.yml']
+description = "Ignorar archivo secrets.yml"
+files = ["deploy/secrets.yml"]
 
+# Permitir expresiones regulares específicas
+[[rules]]
+description = "Allowlist para secretos específicos"
     [rules.allowlist]
+    paths = ["deploy/secrets.yml"]
     regexes = [
-      '''ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9'''
+      '''^ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9$'''
     ]
