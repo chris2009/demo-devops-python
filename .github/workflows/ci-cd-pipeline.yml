@@ -65,6 +65,8 @@ jobs:
         run: |
           docker build -t testdevopsmiapp.azurecr.io/my-devops-app:${{ github.sha }} .
           docker push testdevopsmiapp.azurecr.io/my-devops-app:${{ github.sha }}
+          docker tag testdevopsmiapp.azurecr.io/my-devops-app:${{ github.sha }} testdevopsmiapp.azurecr.io/my-devops-app:latest
+          docker push testdevopsmiapp.azurecr.io/my-devops-app:latest
 
   deploy-to-aks:
     needs: build-and-push-docker-image
