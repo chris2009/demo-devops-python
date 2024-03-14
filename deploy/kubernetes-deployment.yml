@@ -15,6 +15,12 @@ spec:
       containers:
       - name: my-devops-app
         image: testdevopsmiapp.azurecr.io/my-devops-app:latest
+        env:
+          - name: DJANGO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: my-devops-app-secret
+                key: DJANGO_SECRET_KEY
         ports:
         - containerPort: 8000
         livenessProbe:
