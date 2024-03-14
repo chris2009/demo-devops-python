@@ -80,10 +80,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Create or Update ConfigMap
-        run: |
-            kubectl apply -f deploy/config.yml
-
       - name: Install Azure CLI aks-preview extension
         run: az extension add --name aks-preview
 
@@ -98,6 +94,12 @@ jobs:
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
+
+      - name: Create Kubernetes Secret
+        run: |
+            kubectl create secret generic my-devops-app-secret \
+              --from-literal=django-secret-key=${{ secrets.DJANGO_SECRET_KEY }} \
+              --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Apply ConfigMap
         run: kubectl apply -f deploy/config.yml
