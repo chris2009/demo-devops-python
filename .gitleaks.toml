@@ -1,9 +1,13 @@
-[[rules]]
-description = "Excluir archivos específicos"
-files = ["deploy/secrets.yml"]
+# Configuración global de Gitleaks
+[whitelist]
+description = "Lista blanca global para excluir falsos positivos específicos"
 
-[rules.allowlist]
-description = "Permitir claves de API genéricas en ciertos archivos"
+# Excluir archivos específicos por ruta
+files = [
+  '''deploy/secrets.yml'''
+]
+
+# Permitir expresiones regulares específicas
 regexes = [
   '''ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9'''
 ]
