@@ -2,13 +2,8 @@
 description = "Excluir archivos específicos"
 files = ["deploy/secrets.yml"]
 
-[[rules.allowlist]]
+[rules.allowlist]
 description = "Permitir claves de API genéricas en ciertos archivos"
-files = ["deploy/secrets.yml"]
-regex = '''ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9'''
-
-[allowlist]
-description = "Allowlist para secretos específicos"
 regexes = [
-  "ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9"
+  '''ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9'''
 ]
