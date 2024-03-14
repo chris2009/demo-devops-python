@@ -78,12 +78,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set AKS context
-        uses: azure/aks-set-context@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-group: app_contenedor
-          cluster-name: devops_k8s
+      - name: Install Azure CLI aks-preview extension
+        run: az extension add --name aks-preview
+
+      - name: Get AKS credentials
+        run: az aks get-credentials --resource-group ${{ secrets.RESOURCE_GROUP }} --name ${{ secrets.CLUSTER_NAME }} --file kubeconfig --overwrite-existing
+
+      - name: Set KUBECONFIG
+        run: echo "KUBECONFIG=${PWD}/kubeconfig" >> $GITHUB_ENV
 
       - name: Install kubectl
         run: |
@@ -91,6 +93,11 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
+      - name: Diagnosticar problemas de red (Ping)
+        run: ping -c 4 devops-test-s11yfujo.hcp.eastus.azmk8s.io
+
+      - name: Diagnosticar problemas de red (Traceroute)
+        run: traceroute devops-test-s11yfujo.hcp.eastus.azmk8s.io
+
       - name: Deploy to AKS
-        run: |
-          kubectl apply -f deploy/kubernetes-deployment.yml --validate=false;
+        run: kubectl apply -f deploy/kubernetes-deployment.yml --validate=false
