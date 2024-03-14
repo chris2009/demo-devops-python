@@ -100,6 +100,9 @@ jobs:
             kubectl create secret generic my-devops-app-secret \
               --from-literal=django-secret-key=${{ secrets.DJANGO_SECRET_KEY }} \
               --dry-run=client -o yaml | kubectl apply -f -
+        shell: /usr/bin/bash -e {0}
+        env:
+          KUBECONFIG: /home/runner/work/demo-devops-python/demo-devops-python/kubeconfig
 
       - name: Apply ConfigMap
         run: kubectl apply -f deploy/config.yml
