@@ -1,6 +1,8 @@
 [[rules]]
-    description = "Permitir secretos específicos"
-    files = ['deploy/secrets.yml']
-    allowlist = [
-        {regex = '''^ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9$'''},
+description = "Permitir secretos específicos"
+files = ['deploy/secrets.yml']
+
+    [rules.allowlist]
+    regexes = [
+      '''ZGphbmdvLWluc2VjdXJlLXdjMmkyKjZeMTckOSF1Kyh1NjZAcV9yZykrK24xeC1eKDAtJDN5ejJmKG49Xy1vKjc9'''
     ]
