@@ -15,6 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Gitleaks
+        uses: zricethezav/gitleaks-action@master
+        with:
+          config-path: .gitleaks.toml
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
