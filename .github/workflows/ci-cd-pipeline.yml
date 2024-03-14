@@ -23,19 +23,29 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install coverage
 
-      - name: Run tests
+      - name: Run Unit Tests with Coverage
         run: |
-          pytest
+          coverage run manage.py test api
 
-      - name: Run coverage
+      - name: Generate Coverage Report
         run: |
-          coverage run -m pytest
-          coverage report
+          coverage xml
 
-      - name: Run static analysis
-        run: |
-          flake8 .
+      - name: Static Code Analysis
+        uses: github/super-linter@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Code Coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
 
   build-and-push-docker-image:
     needs: build-and-test
