@@ -1,0 +1,3 @@
+[[rules]]
+  description = "Excluir archivo secrets.yml"
+  files = ['deploy/secrets.yml']
