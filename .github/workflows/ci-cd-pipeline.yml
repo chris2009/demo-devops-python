@@ -93,7 +93,10 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
-      - name: Diagnosticar problemas de red (Traceroute)
+      - name: Install traceroute
+        run: sudo apt-get update && sudo apt-get install traceroute -y
+
+      - name: Run traceroute
         run: traceroute devops-test-s11yfujo.hcp.eastus.azmk8s.io
 
       - name: Deploy to AKS
