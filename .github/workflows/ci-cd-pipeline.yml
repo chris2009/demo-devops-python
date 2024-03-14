@@ -78,6 +78,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Set AKS context
+        uses: azure/aks-set-context@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-group: app_contenedor
+          cluster-name: devops_k8s
+
       - name: Install kubectl
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -86,4 +93,4 @@ jobs:
 
       - name: Deploy to AKS
         run: |
-          kubectl apply -f deploy/kubernetes-deployment.yml
+          kubectl apply -f deploy/kubernetes-deployment.yml --validate=false;
