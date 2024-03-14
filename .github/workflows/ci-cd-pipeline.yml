@@ -85,7 +85,7 @@ jobs:
         run: az aks get-credentials --resource-group ${{ secrets.RESOURCE_GROUP }} --name ${{ secrets.CLUSTER_NAME }} --file kubeconfig --overwrite-existing
 
       - name: Set KUBECONFIG
-        run: echo "KUBECONFIG=${PWD}/kubeconfig" >> $GITHUB_ENV
+        run: echo "KUBECONFIG=${PWD}/kubeconfig" >> "$GITHUB_ENV"
 
       - name: Install kubectl
         run: |
