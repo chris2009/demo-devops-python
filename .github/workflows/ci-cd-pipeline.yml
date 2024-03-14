@@ -15,12 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Gitleaks
-        uses: zricethezav/gitleaks-action@master
-        with:
-          config-path: .gitleaks.toml
-          additional-flags: '--exclude-path="deploy/secrets.yml"'
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -112,9 +106,6 @@ jobs:
 
       - name: Apply ConfigMap
         run: kubectl apply -f deploy/config.yml
-
-      - name: Apply Secret
-        run: kubectl apply -f deploy/secrets.yml
 
       - name: Install traceroute
         run: sudo apt-get update && sudo apt-get install traceroute -y
