@@ -1,5 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .models import User
 from .serializers import UserSerializer
@@ -16,6 +17,11 @@ class UserViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, pk):
         serializer = self.get_serializer(self.get_object())
         return Response(serializer.data)
+
+    @api_view(['GET'])
+    def health_check(request):
+        # Aquí podrías agregar verificaciones adicionales si es necesario
+        return Response({"status": "healthy"}, status=status.HTTP_200_OK)
 
     def create(self, request):
         data = request.data
