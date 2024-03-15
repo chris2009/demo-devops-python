@@ -20,6 +20,10 @@ RUN chown -R myuser:myuser /app
 # Cambiar al usuario no root
 USER myuser
 
+# Ejecutar migraciones de la base de datos
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+
 # Exponer el puerto en el que se ejecutará la aplicación
 EXPOSE 8000
 
