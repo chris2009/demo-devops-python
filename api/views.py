@@ -6,7 +6,7 @@ from .models import User
 from .serializers import UserSerializer
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def health_check(request):
     return Response({"status": "healthy"}, status=status.HTTP_200_OK)
 
