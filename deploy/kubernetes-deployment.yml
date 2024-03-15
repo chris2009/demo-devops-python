@@ -20,7 +20,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: my-devops-app-secret
-                key: DJANGO_SECRET_KEY
+                key: django-secret-key
         ports:
         - containerPort: 8000
         livenessProbe:
