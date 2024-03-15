@@ -20,7 +20,7 @@ RUN chown -R myuser:myuser /app
 # Cambiar al usuario no root
 USER myuser
 
-# Ejecutar migraciones de la base de datos
+# Ejecutar la migración de la base de datos
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 
